@@ -51,4 +51,10 @@ class Song(Json):
     @property
     def channelId(self) -> str:
         return self['channel_id']
+    
+    def __hash__(self) -> int:
+        return hash(self.id)
+    
+    def __eq__(self, other) -> bool:
+        return isinstance(other, Song) and self._json == other._json
         
