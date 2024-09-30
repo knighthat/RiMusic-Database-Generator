@@ -1,6 +1,6 @@
 from sys import argv, stderr, exit
 
-from func import HistoryToJson, PlaylistMapping
+from func import HistoryToJson, PlaylistMapping, WriteToDatabase
 
 
 if __name__ == '__main__':
@@ -13,6 +13,8 @@ if __name__ == '__main__':
             HistoryToJson()
         if argv[1] == 'get-playlist-map':
             PlaylistMapping()
+        if argv[1] == 'write':
+            WriteToDatabase()
     except KeyboardInterrupt:
         print('Program stopped as requested by user')
         exit(0)
