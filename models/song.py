@@ -1,10 +1,14 @@
 from utils import Json
 
+from utils.converter import sec_2_min
+
 
 class Song(Json):
 
     def __init__(self, json: dict) -> None:
         super().__init__(json)
+        
+        self._thumbnailUrl: str = ''
 
     @property
     def id(self) -> str:
@@ -15,7 +19,7 @@ class Song(Json):
         return self['title']
 
     @property
-    def artistText(self) -> str:
+    def artistsText(self) -> str:
         return self['author']
 
     @property
@@ -47,3 +51,4 @@ class Song(Json):
     @property
     def channelId(self) -> str:
         return self['channel_id']
+        
