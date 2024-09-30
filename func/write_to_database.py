@@ -49,6 +49,14 @@ def main(
     for channelId, artist in channel_to_author.items():
         artists.add(artist)
         
+        # Check if artist has any song
+        if not channelId in channel_to_songs.keys():
+            continue
+        
+        # Map songs to artists
+        for song in channel_to_songs[channelId]:
+            artist.add(song)
+        
     for song_list in channel_to_songs.values():
         for song in song_list:
             songs.add(song)    

@@ -33,3 +33,4 @@ class Artist(Table):
                 f'INSERT INTO {self.tableName} (id, name, thumbnailUrl, timestamp, bookmarkedAt) VALUES (?, ?, ?, ?, ?)',
                 (artist.id, artist.name, artist.thumbnailUrl, artist.timestamp, artist.bookmarkedAt)
             )
+            artist.write_to_database(cursor)

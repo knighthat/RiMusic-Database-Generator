@@ -1,7 +1,8 @@
+from sqlite3 import Cursor
 import time
 
 from utils import Json
-from models import Song as SongModel
+from models import Song
 
 
 
@@ -12,6 +13,8 @@ class Artist(Json):
 
         self._thumbnailUrl: str = ''
         self._current_time: int = int(time.time() * 1000)
+        
+        self._songs: dict[str, Song] = {}
 
     @property
     def id(self) -> str:
@@ -49,3 +52,19 @@ class Artist(Json):
     @property
     def bookmarkedAt(self) -> int:
         return self._current_time
+    
+    def get(self, song_name: str) -> Song | None:
+        if song_name in self._songs.keys():
+            return self._songs[song_name]
+        else:
+            return None
+        
+    def add(self, song: Song) -> None:
+        self._songs[song.title] = song
+        
+    def write_to_database(self, cursor: Cursor) -> None:
+        for song in self._songs.values():
+            cursor.execute(
+                f'INSERT INTO SongArtistMap (songId, artistid) VALUES (?, ?)',
+                (song.id, self.id)
+            )
