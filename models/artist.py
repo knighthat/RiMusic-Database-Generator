@@ -30,12 +30,15 @@ class Artist(Json):
             for thumbnail in self['thumbnails']:
                 width, height = thumbnail['width'], thumbnail['height']
 
-                if width <= pre_width or pre_height <= pre_height:
+                if width <= pre_width or height <= pre_height:
                     continue
                 if width > max_width or height > max_height:
                     continue
 
                 self._thumbnailUrl = thumbnail['url']
+                
+                pre_width = width
+                pre_height = height
     
         return self._thumbnailUrl
 
