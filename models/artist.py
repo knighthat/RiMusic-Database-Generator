@@ -53,6 +53,10 @@ class Artist(Json):
     def bookmarkedAt(self) -> int:
         return self._current_time
     
+    @property
+    def songs(self) -> set[Song]:
+        return set(self._songs.values())
+    
     def get(self, song_name: str) -> Song | None:
         if song_name in self._songs.keys():
             return self._songs[song_name]
@@ -63,7 +67,7 @@ class Artist(Json):
         self._songs[song.title] = song
         
     def write_to_database(self, cursor: Cursor) -> None:
-        for song in self._songs.values():
+        for song in self.songs:
             cursor.execute(
                 f'INSERT INTO SongArtistMap (songId, artistid) VALUES (?, ?)',
                 (song.id, self.id)
