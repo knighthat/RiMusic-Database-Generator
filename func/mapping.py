@@ -3,12 +3,6 @@ from json import dumps
 import os
 
 
-SUPPORTED_PLAYLIST = [
-    "language",
-    "genre"
-]
-
-
 
 def main(
     query_path: str = 'listened',
@@ -21,17 +15,15 @@ def main(
     It allows a more fine-grined database.
     """
  
-    artists: list[str] = []
-    for root, dirs, files in os.walk(query_path):
-        artist_name: str = os.path.basename(root)
-
-        if not os.path.samefile(query_path, root):
-            artists.append(artist_name)
-
-    playlist_file: dict[str, dict] = {}
-    for playlist in SUPPORTED_PLAYLIST:
-        playlist_file[playlist] = {artist: "" for artist in artists}
+    artists: dict[str, list] = {}
+    for name in os.listdir(query_path):
+        filepath: str = os.path.join(query_path, name)
+        # Filter out directories
+        if not os.path.isdir(filepath):
+            continue
+        
+        artists[name] = []
 
     with open(playlist_filepath, 'w') as file:
-        file.write(dumps(playlist_file, indent=2, ensure_ascii=False))    
+        file.write(dumps(artists, indent=2, ensure_ascii=False))    
 
