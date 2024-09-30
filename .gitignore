@@ -3,6 +3,12 @@
 *__pycache__/
 
 
+# VSCode
+.vscode/
+
+
 # Project files
 listened/
 Takeout/
+playlists.json
+RiMusic.db
