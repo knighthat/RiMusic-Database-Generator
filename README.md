@@ -92,6 +92,15 @@ $ .venv/bin/python main write
 
 This will be your final command. Once executed, it'll read everything inside `./listened` directory and write the data to the database.
 
+### generate
+
+```sh
+$ ./venv/bin/python main generate
+```
+
+This command will create an empty database for you to write your watch history
+
+
 # Watch out
 
 [convert](#convert) command quries YouTube Music for song details.
